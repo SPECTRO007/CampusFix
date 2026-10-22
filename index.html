@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CampusFix | Campus Maintenance Tracker</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">CF</span><span>CampusFix<small>Campus maintenance, made transparent</small></span></a>
+    <button id="connectBtn" class="button primary">Connect MetaMask</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">DECENTRALIZED CAMPUS SERVICES</p>
+        <h1>Small fixes.<br><span>Visible progress.</span></h1>
+        <p class="hero-copy">Report a campus maintenance issue and follow its status through a transparent on-chain record.</p>
+      </div>
+      <div class="hero-card">
+        <span class="hero-icon">⌁</span>
+        <p class="stat-label">ON-CHAIN REQUESTS</p>
+        <p id="requestCount" class="stat-number">—</p>
+        <p id="networkLabel" class="muted">Wallet not connected</p>
+      </div>
+    </section>
+
+    <section class="wallet-strip">
+      <span class="status-dot"></span>
+      <div><strong id="walletStatus">Wallet disconnected</strong><p id="walletAddress">Connect MetaMask to interact with CampusFix.</p></div>
+      <button id="refreshBtn" class="button secondary" disabled>Refresh records</button>
+    </section>
+
+    <div id="notice" class="notice hidden" role="status"></div>
+
+    <section class="content-grid">
+      <section class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">NEW REPORT</p><h2>Report an issue</h2></div><span class="step">01</span></div>
+        <form id="requestForm">
+          <label for="location">Campus location</label>
+          <input id="location" name="location" maxlength="100" placeholder="e.g. Library, 2nd floor" required>
+          <label for="description">What needs fixing?</label>
+          <textarea id="description" name="description" maxlength="500" rows="4" placeholder="Describe the issue clearly…" required></textarea>
+          <p class="field-note">Use a location and description only. Do not enter personal or sensitive information.</p>
+          <button id="submitBtn" class="button primary full" type="submit" disabled>Connect wallet to submit</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading"><div><p class="eyebrow">WORKFLOW</p><h2>Request statuses</h2></div><span class="step">02</span></div>
+        <div class="workflow">
+          <div class="workflow-item"><span class="status-pill submitted">01</span><div><strong>Submitted</strong><p>Issue is recorded and awaiting review.</p></div></div>
+          <div class="workflow-item"><span class="status-pill progress">02</span><div><strong>In progress</strong><p>Maintenance work is underway.</p></div></div>
+          <div class="workflow-item"><span class="status-pill resolved">03</span><div><strong>Resolved</strong><p>The issue has been marked complete.</p></div></div>
+        </div>
+        <div class="admin-note"><strong>Admin controls</strong><p>Only the wallet that deployed the contract can update request statuses. Connect that wallet to see the controls.</p></div>
+      </section>
+    </section>
+
+    <section class="records-section">
+      <div class="records-heading"><div><p class="eyebrow">PUBLIC LEDGER</p><h2>Maintenance requests</h2><p class="muted">Records are read from the smart contract.</p></div><span id="recordCountLabel" class="record-count">0 records</span></div>
+      <div id="records" class="records"><div class="empty-state">Connect your wallet and refresh to load records.</div></div>
+    </section>
+
+    <footer><span>CampusFix</span><span>Built on Ethereum-compatible blockchain technology</span></footer>
+  </main>
+</body>
+</html>
